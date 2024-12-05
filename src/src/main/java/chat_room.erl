@@ -56,7 +56,7 @@ send_message(RoomName, {User, Message}) ->
   RoomAtom = list_to_atom(RoomName),
   RoomAtom ! {message, User, Message}.
 
-% Handle chat room crash recovery.
+% Kevin Comments
 crash_recovery(RoomName) ->
   io:format("Recovering chat room ~s~n", [RoomName]),
   start(RoomName).
