@@ -15,9 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          otp-version:'27'
-
       - name: Compile project
         run: erlc src/src/main/java/hellohi.erl
       - name: Run tests
