@@ -22,7 +22,7 @@ start() ->
 
 % Stops the user server by deleting the ETS table named 'users'.
 stop() ->
-
+  ets:delete(users),
   {ok, "User server stopped"}.
 
 % Registers a user with a given Username and Password.
@@ -38,7 +38,6 @@ register_user(Username, Password) ->
 
 % Authenticates a user by checking the given Username and Password.
 authenticate_user(Username, Password) ->
-  case ets:lookup(users, Username) of
     [{_, StoredPassword}] ->
       case bcrypt:check_pass(Password, StoredPassword) of
         true -> {ok, "Authenticated"};

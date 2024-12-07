@@ -10,17 +10,37 @@ permissions:
   contents: read
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     container:
       image: erlang:22.0.7
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Compile
-      run: rebar3 compile
-    - name: Run tests
-      run: rebar3 do eunit, ct
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Compile the project
+      - name: Compile the code
+        run: rebar3 compile
+
+      # Step 3: Run unit tests
+      - name: Run unit tests
+        run: rebar3 eunit
+
+      # Step 4: Run common tests
+      - name: Run common tests
+        run: rebar3 ct
+
+      # Step 5: Generate test coverage report
+      - name: Generate test coverage report
+        run: rebar3 cover
+
+      # Step 6: Upload build artifacts (optional)
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: _build/
+
