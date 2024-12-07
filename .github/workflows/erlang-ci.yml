@@ -14,8 +14,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Compile project
-        run: erlc src/src/main/java/hellohi.erl
-      - name: Run tests
-        run: rebar3 do eunit, ct
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Erlang
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: 25.0  # Use a newer Erlang version compatible with your project
+          rebar3-version: 3.18.0
+
+      - name: Compile
+        run: rebar3 compile
+
+      - name: Run Unit Tests
+        run: rebar3 eunit
+
+      - name: Run Common Tests
+        run: rebar3 ct
