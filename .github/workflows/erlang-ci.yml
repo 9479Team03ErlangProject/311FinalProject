@@ -19,8 +19,11 @@ jobs:
       image: erlang:27
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Compile
+    - uses: actions/checkout@v2
+      with:
+        otp-version:'27'
+
+    - name: Compile project
       run: erlc src/src/main/java/hellohi.erl
     - name: Run tests
       run: rebar3 do eunit, ct
