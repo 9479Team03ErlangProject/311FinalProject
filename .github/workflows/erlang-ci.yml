@@ -20,7 +20,7 @@ jobs:
       - name: Set up Erlang
         uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0  # Use a newer Erlang version compatible with your project
+          otp-version: 25.0  # Use a newer Erlang version compatible with your project
           rebar3-version: 3.18.0
 
       - name: Compile
