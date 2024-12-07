@@ -4,10 +4,13 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 07. Dec 2024 11:08 PM
+%%% Created : 07. Dec 2024 11:16 PM
 %%%-------------------------------------------------------------------
--module(hello).
+-module(hellohi).
 -author("MY PC").
 
 %% API
--export([]).
+-export([hello/0]).
+
+hello()->
+  "adobo".

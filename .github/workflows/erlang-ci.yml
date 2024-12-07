@@ -21,6 +21,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Compile
-      run: rebar3 compile
+      run: erlc hellohi.erl
     - name: Run tests
       run: rebar3 do eunit, ct
