@@ -17,12 +17,12 @@
 
 % Starts the user server by creating an ETS table named 'users'.
 start() ->
-  ets:new(users, [named_table, public]),
+
   {ok, "User server started"}.
 
 % Stops the user server by deleting the ETS table named 'users'.
 stop() ->
-  ets:delete(users),
+
   {ok, "User server stopped"}.
 
 % Registers a user with a given Username and Password.
