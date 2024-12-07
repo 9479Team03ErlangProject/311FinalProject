@@ -14,9 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: erlang:22.0.7
+      image: erlang:27
 
     steps:
+<<<<<<< HEAD
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,4 +44,11 @@ jobs:
         with:
           name: build-artifacts
           path: _build/
+=======
+    - uses: actions/checkout@v4
+    - name: Compile
+      run: erlc src/src/main/java/hellohi.erl
+    - name: Run tests
+      run: rebar3 do eunit, ct
+>>>>>>> c0d526d32b3b9d46fadf9ce9f36024d08eda9a47
 
