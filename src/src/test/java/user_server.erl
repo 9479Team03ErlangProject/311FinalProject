@@ -26,6 +26,7 @@ stop() ->
   {ok, "User server stopped"}.
 
 
+
 % Authenticates a user by checking the given Username and Password.
 authenticate_user(Username, Password) ->
   case ets:lookup(users, Username) of
