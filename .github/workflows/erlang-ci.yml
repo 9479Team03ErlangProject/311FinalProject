@@ -15,6 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Run erlang
+        run: erl
       - name: Compile project
         run: erlc src/src/main/java/hellohi.erl
       - name: Run tests
