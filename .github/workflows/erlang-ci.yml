@@ -13,34 +13,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: erlang:22.0.7
-
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Compile the project
-      - name: Compile the code
+      - name: Set up Erlang
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: 25.0  # Use a newer Erlang version compatible with your project
+          rebar3-version: 3.18.0
+
+      - name: Compile
         run: rebar3 compile
 
-      # Step 3: Run unit tests
-      - name: Run unit tests
+      - name: Run Unit Tests
         run: rebar3 eunit
 
-      # Step 4: Run common tests
-      - name: Run common tests
+      - name: Run Common Tests
         run: rebar3 ct
-
-      # Step 5: Generate test coverage report
-      - name: Generate test coverage report
-        run: rebar3 cover
-
-      # Step 6: Upload build artifacts (optional)
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: _build/
-
