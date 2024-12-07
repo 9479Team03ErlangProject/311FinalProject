@@ -21,16 +21,7 @@ start() ->
 register_user(Username, Password) ->
   user_server:register_user(Username, Password).
 
-% Authenticates a user using the user_server module.
-login(Username, Password) ->
-  case user_server:authenticate_user(Username, Password) of
-    {ok, _} ->
-      io:format("~s logged in successfully.~n", [Username]),
-      {ok, Username};
-    {error, Reason} ->
-      io:format("Login failed: ~s~n", [Reason]),
-      {error, Reason}
-  end.
+
 
 % Allows a user to join a chat room.
 join_room(Username, RoomName) ->

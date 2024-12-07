@@ -25,16 +25,6 @@ stop() ->
   ets:delete(users),
   {ok, "User server stopped"}.
 
-% Registers a user with a given Username and Password.
-register_user(Username, Password) ->
-  case ets:lookup(users, Username) of
-    [] ->
-      HashedPassword = bcrypt:hash_pwd_salt(Password),
-      ets:insert(users, {Username, HashedPassword}),
-      {ok, "User registered"};
-    _ ->
-      {error, "User already exists"}
-  end.
 
 % Authenticates a user by checking the given Username and Password.
 authenticate_user(Username, Password) ->
