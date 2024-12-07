@@ -10,21 +10,15 @@ permissions:
   contents: read
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
-    container:
-      image: erlang:27
-
     steps:
-    - uses: actions/checkout@v2
-      with:
-        otp-version:'27'
+      - uses: actions/checkout@v2
+        with:
+          otp-version:'27'
 
-    - name: Compile project
-      run: erlc src/src/main/java/hellohi.erl
-    - name: Run tests
-      run: rebar3 do eunit, ct
-
+      - name: Compile project
+        run: erlc src/src/main/java/hellohi.erl
+      - name: Run tests
+        run: rebar3 do eunit, ct
