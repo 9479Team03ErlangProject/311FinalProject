@@ -12,13 +12,12 @@
 -author("Christian Lucina").
 -export([start/1, join/2, leave/2, send_message/2, crash_recovery/1]).
 
-% Supervisor initialization for automatic crash recovery.
 start(RoomName) ->
   process_flag(trap_exit, true),
+  % Convert RoomName (which is a string) to an atom
   RoomAtom = list_to_atom(RoomName),
   register(RoomAtom, spawn(fun() -> loop(RoomAtom, []) end)).
 
-% Chat room loop that handles user join, leave, message, and crashes.
 loop(RoomName, Members) ->
   receive
     {join, User} ->
@@ -32,7 +31,8 @@ loop(RoomName, Members) ->
     {message, User, Message} ->
       lists:foreach(fun(Member) ->
         if Member /= User ->
-          io:format("Message to ~s from ~s: ~s~n", [Member, User, Message])
+          io:format("Message to ~s from ~s: ~s~n", [Member, User, Message]);
+          true -> ok
         end
                     end, Members),
       loop(RoomName, Members);
@@ -41,23 +41,15 @@ loop(RoomName, Members) ->
       crash_recovery(RoomName)
   end.
 
-% Handle joining a room.
 join(RoomName, User) ->
+  % Convert RoomName to atom if it is a string
   RoomAtom = list_to_atom(RoomName),
   RoomAtom ! {join, User}.
-
-% Handle leaving a room.
-leave(RoomName, User) ->
-  RoomAtom = list_to_atom(RoomName),
-  RoomAtom ! {leave, User}.
-
-% Handle sending a message.
+leave(RoomName, User) -> RoomName ! {leave, User}.
 send_message(RoomName, {User, Message}) ->
+  % Convert RoomName to atom if it is a string
   RoomAtom = list_to_atom(RoomName),
   RoomAtom ! {message, User, Message}.
-
-% Handle chat room crash recovery.
 crash_recovery(RoomName) ->
   io:format("Recovering chat room ~s~n", [RoomName]),
   start(RoomName).
-
